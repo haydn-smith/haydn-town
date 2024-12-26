@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply leading-relaxed;
+}
+
+h1 {
+  @apply text-xl font-bold my-4 text-dracula-purple;
+}
+
+h2 {
+  @apply text-lg font-bold my-3 text-dracula-purple;
+}
+
+h3 {
+  @apply font-bold my-2 text-dracula-purple;
+}
+
+h4 {
+  @apply text-sm font-bold my-1 text-dracula-purple;
+}
+
+h5 {
+  @apply text-xs font-bold my-1 text-dracula-purple;
+}
+
+p {
+  @apply my-2;
+}
+
+ul {
+  @apply my-2 list-disc;
+
+  li {
+    @apply my-1 ml-6;
+  }
+}
+
+ol {
+  @apply my-2 list-decimal;
+
+  li {
+    @apply my-1 ml-6;
+  }
+}
+
+a {
+  @apply text-dracula-cyan transition;
+
+  &:hover {
+    @apply text-dracula-orange;
+  }
+
+  &:not(.plain-anchor) {
+    &:before {
+      @apply text-dracula-comment;
+
+      content: "link:(";
+    }
+
+    &:after {
+      @apply text-dracula-comment;
+
+      content: ")";
+    }
+  }
+}
+
+blockquote {
+  @apply px-4 py-2 rounded bg-dracula-current-line my-2;
+
+  p {
+    @apply m-0;
+  }
+}
+
+pre {
+  @apply px-4 py-4 rounded bg-dracula-current-line my-2 text-sm border border-dracula-current-line;
+}
+
+img {
+  @apply rounded my-2;
+}

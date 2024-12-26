@@ -1,0 +1,63 @@
+networks:
+  default:
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www/html:delegated
+    depends_on:
+      - mysql
+    networks:
+      - default
+
+  mysql:
+    image: mysql:8
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./.mysql:/var/lib/mysql
+    networks:
+      - default
+
+  composer:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/html
+    entrypoint: ["composer", "--ignore-platform-reqs"]
+    networks:
+      - default
+
+  artisan:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/html
+    entrypoint: ["php", "artisan"]
+    depends_on:
+      - mysql
+    networks:
+      - default
+
+  npm:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/html
+    entrypoint: ["npm"]
+    networks:
+      - default
