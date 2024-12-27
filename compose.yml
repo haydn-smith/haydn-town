@@ -6,6 +6,9 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     restart: unless-stopped
     ports:
       - 8000:80
@@ -34,6 +37,9 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     volumes:
       - ./:/var/www/html
     entrypoint: ["composer", "--ignore-platform-reqs"]
@@ -44,6 +50,9 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     volumes:
       - ./:/var/www/html
     entrypoint: ["php", "artisan"]
@@ -56,6 +65,9 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     volumes:
       - ./:/var/www/html
     entrypoint: ["npm"]
